@@ -1,0 +1,17 @@
+{
+  "profile": ["VLAN{{ vlan_id }}"],
+  "rule": {
+    "condition": {
+      "conditionType": "ConditionAttributes",
+      "isNegate": false,
+      "dictionaryName" : "{{ join_point }}",
+      "attributeName" : "ExternalGroups",
+      "operator" : "equals",
+      "attributeValue" : "{{ group_full_name }}"
+    },
+    "default": false,
+    "name": "{{ group_name }}_VLAN{{ vlan_id }}",
+    "rank": 0,
+    "state": "enabled"
+  }
+}

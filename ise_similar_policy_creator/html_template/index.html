@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISE Similar Policy Generator Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-grid.css">
+
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<script language="JavaScript">
+    function checkForm()
+    {
+        var txt = loeform.buffer.value;
+        var leader_range = loeform.leader.value;
+        if(checknum(txt))
+        {
+            alert("Buffer Reservation Input Error! number only! Buffer 输入错误！！ 只能输入数字！！")
+            return false
+        }
+        if(checkRange(leader_range))
+        {
+            alert("Leading Engineer Effort input Error! the range is 0 - 89, please enter the number only, if no need leading engineer, please enter 0")
+            return false
+        }
+        return true
+    }
+
+    function checknum(String)
+    {
+        var Letters = "1234567890";
+        var i;
+        var c;
+        for( i = 0; i < String.length; i++ )
+        {
+            c = String.charAt( i );
+            if (Letters.indexOf(c) == -1 )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function checkRange(String)
+    {
+        var decadeLetters = "12345678";
+      	var unitLetters = "1234567890";
+      	var d;
+      	var u;
+       	if (String.length >= 3)
+      	{
+          return true;
+        }
+       	else if (String.length == 2)
+        {
+            d = String.charAt(0);
+            u = String.charAt(1);
+            if (decadeLetters.indexOf(d) == -1 || unitLetters.indexOf(u) == -1)
+            {
+                return true;
+            }
+        }
+      	else if (String.length == 1)
+          {
+            u = String.charAt(0);
+            if (unitLetters.indexOf(u) == -1)
+            {
+              return true;
+            }
+          }
+      	else
+          {
+            return true
+          }
+        return false;
+    }
+</script>
+
+<body>
+<div class="container">
+  <div class="row">
+      <div class="col">
+        {% load static %}
+        <img src="{% static './cisco_log.png' %}" alt="qwe" width="118" height="68" class="d-inline-block align-text-top">
+      </div>
+      <div>
+          <h3><small class="text-muted">Cisco ISE Similar Policy Creator</small></h3>
+      </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+        {% if upload_result %}
+        <p style="color: red">{{ upload_result }}</p>
+        {% endif %}
+        <!-- file uploading -->
+        <form class="was-validated" enctype="multipart/form-data" action="/uploadFile/" method="post">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label class="form-label">Taget ISE IP Address:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="ipaddress" class="form-control" aria-describedby="emailHelp" required/>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="form-label">ISE API Admin Username</label>
+                <div class="col-sm-10">
+                    <input type="text" name="username" class="form-control" aria-describedby="emailHelp" placeholder="admin" required/>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="form-label">ISE API Admin Password</label>
+                <div class="col-sm-10">
+                    <input type="password" name="password" class="form-control" aria-describedby="emailHelp" required>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="mb-3">
+                <input type="file" name="myfile" class="form-control" aria-label="file example" required/>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary" > Submit </button>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Warning</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Warning</h6>
+                <p class="card-text">It's the beta version, please make sure the target ISE is not in production environment </p>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+        <div class="card text-center">
+            <div class="card-header">
+                You Have no CSV template?
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Please Download the CSV Template Here!</h5>
+                <p class="card-text">Ensure your uploaded CSV is filled base on the template</p>
+                <a href="{% url 'csvdownload' %}" class="btn btn-primary">Download</a>
+            </div>
+            <div class="card-footer text-muted">
+                Any Issue please contact Sean Tianqi Yuan(tianyuan@cisco.com)
+            </div>
+        </div><br />
+    </div>
+      <!--
+    <div class="col-sm">col-sm</div>
+    <div class="col-sm">col-sm</div>
+    -->
+  </div>
+
+</div>
+</body>
+</html>

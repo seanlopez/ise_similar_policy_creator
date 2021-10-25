@@ -1,0 +1,17 @@
+{
+  "profile": ["VLAN100"],
+  "rule": {
+    "condition": {
+      "conditionType": "ConditionAttributes",
+      "isNegate": false,
+      "dictionaryName" : "tianqi.com",
+      "attributeName" : "ExternalGroups",
+      "operator" : "equals",
+      "attributeValue" : "tianqi.com/Users/Domain Users"
+    },
+    "default": false,
+    "name": "Vlan100AutoCreate",
+    "rank": 1,
+    "state": "enabled"
+  }
+}
